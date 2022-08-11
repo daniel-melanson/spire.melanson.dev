@@ -4,6 +4,8 @@ import About from "./screens/About";
 import Home from "./screens/Home";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import AcademicGroups from "./screens/AcademicGroups";
+import AcademicGroup from "./screens/AcademicGroup";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Router.Routes>
         <Router.Route path="/" element={<Home />} />
         <Router.Route path="about" element={<About />} />
+        <Router.Route path="academic-groups" element={<AcademicGroups />} />
+        <Router.Route path="academic-groups/:id/:title" element={<AcademicGroup />} />
       </Router.Routes>
       <Footer />
     </div>

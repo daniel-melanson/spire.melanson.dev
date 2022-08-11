@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="text-center text-white" style={{ backgroundColor: "#f1f1f1" }}>
+    <footer className="text-center text-white" style={{ backgroundColor: "#373a36" }}>
       <div className="container pt-4">
         <section className="mb-4">
           <a
@@ -15,7 +15,7 @@ export default function Footer() {
           </a>
         </section>
       </div>
-      <div className="text-center text-dark p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
+      <div className="text-center text-light p-3" style={{ backgroundColor: "#212721" }}>
         Footer text
       </div>
     </footer>

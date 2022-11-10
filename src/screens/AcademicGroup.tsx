@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { api, IAcademicGroup } from "../util/api";
 
 export default function AcademicGroup() {
@@ -11,5 +11,17 @@ export default function AcademicGroup() {
     api("/academic-groups/" + params.id).then(json => setGroup(json));
   });
 
-  return group ? <div>{JSON.stringify(group)}</div> : <div>Loading...</div>;
+  return group ? (
+    <div>
+      <h1>{group.title}</h1>
+      <h2>Subjects:</h2>
+      {group.subjects.map((subject, id) => (
+        <p key={id}>
+          <Link to={`/subjects/${subject.id}`}>{subject.title}</Link>
+        </p>
+      ))}
+    </div>
+  ) : (
+    <div>Loading...</div>
+  );
 }

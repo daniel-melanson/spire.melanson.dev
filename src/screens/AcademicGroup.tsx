@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { api, IAcademicGroup } from "../util/api";
+import { useObject } from "../api";
 
 export default function AcademicGroup() {
-  const params = useParams();
+  const { id } = useParams();
+  if (!id) return <div />;
 
-  const [group, setGroup] = useState<IAcademicGroup | undefined>(undefined);
-
-  useEffect(() => {
-    api("/academic-groups/" + params.id).then(json => setGroup(json));
-  });
-
+  const group = useObject("academic-groups", id);
   return group ? (
     <div>
       <h1>{group.title}</h1>
       <h2>Subjects:</h2>
-      {group.subjects.map((subject, id) => (
-        <p key={id}>
-          <Link to={`/subjects/${subject.id}`}>{subject.title}</Link>
+      {group.subjects.map(subject => (
+        <p key={subject.id}>
+          <Link to={`/subjects/${subject.id}`}>{subject.id}</Link>
         </p>
       ))}
     </div>

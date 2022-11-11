@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ISubject, api } from "../util/api";
+import { useObject } from "../api";
+
+function toSlug(s: string) {
+  return s.toLowerCase().trim().replaceAll(" ", "-");
+}
 
 export default function Subject() {
-  const [subject, setSubject] = useState<ISubject | undefined>(undefined);
   const { id } = useParams();
-  useEffect(() => {
-    api(`/subjects/${id}`).then(setSubject);
-  });
+  if (!id) return <div />;
 
+  const subject = useObject("subjects", id);
   return subject ? (
     <div>
       <h1>{subject.title}</h1>
       <h2>Groups:</h2>
-      {subject.groups.map((group, id) => (
-        <p key={id}>
-          <Link to={`/academic-groups/${group.id}`}>{group.title}</Link>
+      {subject.groups.map(group => (
+        <p key={group.id}>
+          <Link to={`/academic-groups/${group.id}/${toSlug(group.title)}`}>{group.title}</Link>
         </p>
       ))}
       <h2>Courses:</h2>
+      {subject.courses.map(course => (
+        <>
+          <Link to={`/courses/${course.id}`}>{course.id}</Link>
+          <br />
+        </>
+      ))}
     </div>
   ) : (
     <div>Loading...</div>

@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { api, ICourse } from "../util/api";
+import { Link, useParams } from "react-router-dom";
+import { useObject } from "../api";
 
 export default function Course() {
-  const [course, setCourse] = useState<ICourse | undefined>(undefined);
   const { id } = useParams();
-  useEffect(() => {
-    api(`/courses/${id}`).then(setCourse);
-  });
+  if (!id) return <div />;
 
-  return course ? <div>{JSON.stringify(course)}</div> : <div>Loading...</div>;
+  const course = useObject("courses", id);
+  return course ? (
+    <div>
+      <h1>{course.title}</h1>
+      <h2>
+        <Link to={`/subjects/${course.subject.id}`}>{course.subject.title}</Link>
+      </h2>
+      <h2>Offerings:</h2>
+      {course.offerings.map(offering => (
+        <p key={offering.id}>
+          <Link to={`/course-offerings/${offering.id}`}>{offering.term.id}</Link>
+        </p>
+      ))}
+    </div>
+  ) : (
+    <div>Loading...</div>
+  );
 }

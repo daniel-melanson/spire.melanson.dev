@@ -1,13 +1,12 @@
-import React from "react";
 import * as Router from "react-router-dom";
-import About from "./screens/About";
-import Home from "./screens/Home";
-import Header from "./layout/Header";
 import Footer from "./layout/Footer";
-import AcademicGroups from "./screens/AcademicGroups";
+import Header from "./layout/Header";
+import About from "./screens/About";
 import AcademicGroup from "./screens/AcademicGroup";
-import Subject from "./screens/Subject";
+import AcademicGroups from "./screens/AcademicGroups";
 import Course from "./screens/Course";
+import Home from "./screens/Home";
+import Subject from "./screens/Subject";
 
 function App() {
   return (

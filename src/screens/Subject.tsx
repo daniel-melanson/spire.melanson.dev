@@ -1,9 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useObject } from "../api";
-
-function toSlug(s: string) {
-  return s.toLowerCase().trim().replaceAll(" ", "-");
-}
+import { convertToSlug } from "../util/string";
 
 export default function Subject() {
   const { id } = useParams();
@@ -16,15 +13,16 @@ export default function Subject() {
       <h2>Groups:</h2>
       {subject.groups.map(group => (
         <p key={group.id}>
-          <Link to={`/academic-groups/${group.id}/${toSlug(group.title)}`}>{group.title}</Link>
+          <Link to={`/academic-groups/${group.id}/${convertToSlug(group.title)}`}>{group.title}</Link>
         </p>
       ))}
       <h2>Courses:</h2>
       {subject.courses.map(course => (
-        <>
-          <Link to={`/courses/${course.id}`}>{course.id}</Link>
-          <br />
-        </>
+        <p key={course.id}>
+          <Link to={`/courses/${course.id}`}>
+            {course.id}: {course.title}
+          </Link>
+        </p>
       ))}
     </div>
   ) : (

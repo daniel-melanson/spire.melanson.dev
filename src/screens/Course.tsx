@@ -14,9 +14,7 @@ export default function Course() {
       </h2>
       <h2>Offerings:</h2>
       {course.offerings.map(offering => (
-        <p key={offering.id}>
-          <Link to={`/course-offerings/${offering.id}`}>{offering.term.id}</Link>
-        </p>
+        <p key={offering.id}>{offering.term.id}</p>
       ))}
     </div>
   ) : (

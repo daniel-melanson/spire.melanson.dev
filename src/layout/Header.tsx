@@ -1,24 +1,13 @@
-import React from "react";
-import { Nav } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-
-function HeaderLink(props: { to: string; text: string }) {
-  return (
-    <LinkContainer to={props.to}>
-      <Nav.Link className="text-light">{props.text}</Nav.Link>
-    </LinkContainer>
-  );
-}
+import { Container, Form, FormControl, Navbar } from "react-bootstrap";
 
 export default function Header() {
   return (
-    <Nav defaultActiveKey="/" as="ul" style={{ backgroundColor: "#881c1c" }}>
-      <Nav.Item as="li">
-        <HeaderLink to={"/"} text={"Home"} />
-      </Nav.Item>
-      <Nav.Item as="li">
-        <HeaderLink to={"/about"} text={"About"} />
-      </Nav.Item>
-    </Nav>
+    <Navbar expand="lg" bg="primary" variant="dark">
+      <Container fluid className="justify-content-center">
+        <Form className="col-4">
+          <FormControl type="search" placeholder="Search" />
+        </Form>
+      </Container>
+    </Navbar>
   );
 }

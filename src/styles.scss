@@ -1,0 +1,14 @@
+$umass-maroon: #881c1c;
+$umass-black: #212721;
+
+$umass-light-grey: #a2aaad;
+$umass-grey: #505759;
+$umass-dark-grey: #373a36;
+
+$theme-colors: (
+  "primary": $umass-maroon,
+  "secondary": $umass-grey,
+  "dark": $umass-black,
+);
+
+@import "~bootstrap/scss/bootstrap";

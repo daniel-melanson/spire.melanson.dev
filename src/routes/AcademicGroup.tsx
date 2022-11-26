@@ -15,7 +15,7 @@ export default function AcademicGroup() {
             <Card.Body>
               <Card.Title>{subject.id}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">{subject.title}</Card.Subtitle>
-              <Link to={`/courses/${subject.id}`}>More Info</Link>
+              <Link to={`/subjects/${subject.id}`}>More Info</Link>
             </Card.Body>
           </Card>
         ))}

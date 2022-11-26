@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Dropdown, DropdownButton, InputGroup, Nav, Navbar } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { convertToSlug } from "../util/string";
 
 export default function Header() {
@@ -11,12 +11,16 @@ export default function Header() {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">Spire</Navbar.Brand>
+        <Navbar.Brand>Spire</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
+            <Link className={"nav-link"} to="/">
+              Home
+            </Link>
+            <Link className={"nav-link"} to="/about">
+              About
+            </Link>
           </Nav>
           <Form className="d-flex" action={`${convertToSlug(searchGroup)}/search`}>
             <InputGroup>

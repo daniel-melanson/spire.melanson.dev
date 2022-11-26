@@ -9,6 +9,7 @@ $theme-colors: (
   "primary": $umass-maroon,
   "secondary": $umass-grey,
   "dark": $umass-black,
+  "light": #ffffff,
 );
 
 @import "~bootstrap/scss/bootstrap";

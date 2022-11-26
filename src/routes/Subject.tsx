@@ -1,13 +1,11 @@
-import { Link, useParams } from "react-router-dom";
-import { useObject } from "../api";
+import { Link, useLoaderData } from "react-router-dom";
+import { Subject as APISubject } from "../api";
 import { convertToSlug } from "../util/string";
 
 export default function Subject() {
-  const { id } = useParams();
-  if (!id) return <div />;
+  const subject = useLoaderData() as APISubject;
 
-  const subject = useObject("subjects", id);
-  return subject ? (
+  return (
     <div>
       <h1>{subject.title}</h1>
       <h2>Groups:</h2>
@@ -25,7 +23,5 @@ export default function Subject() {
         </p>
       ))}
     </div>
-  ) : (
-    <div>Loading...</div>
   );
 }

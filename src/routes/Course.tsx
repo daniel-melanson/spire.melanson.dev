@@ -1,12 +1,10 @@
-import { Link, useParams } from "react-router-dom";
-import { useObject } from "../api";
+import { Link, useLoaderData } from "react-router-dom";
+import { Course as APICourse } from "../api";
 
 export default function Course() {
-  const { id } = useParams();
-  if (!id) return <div />;
+  const course = useLoaderData() as APICourse;
 
-  const course = useObject("courses", id);
-  return course ? (
+  return (
     <div>
       <h1>{course.title}</h1>
       <h2>
@@ -17,7 +15,5 @@ export default function Course() {
         <p key={offering.id}>{offering.term.id}</p>
       ))}
     </div>
-  ) : (
-    <div>Loading...</div>
   );
 }

@@ -167,5 +167,3 @@ export interface Coverage {
   start_time: string;
   end_time: string;
 }
-
-export { useObject } from "./useObject";

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import Layout from "./layout/Layout";
 import About from "./routes/About";
-import AcademicGroup, { loader as academicGroupLoader } from "./routes/AcademicGroup";
+import AcademicGroup from "./routes/AcademicGroup";
 import AcademicGroups from "./routes/AcademicGroups";
 import Course from "./routes/Course";
 import Courses from "./routes/Courses";
@@ -16,10 +17,10 @@ import "./styles.scss";
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
-    <Route path="/about" element={<About />} />
+    <Route path="about" element={<About />} />
     <Route path="academic-groups">
       <Route index element={<AcademicGroups />} />
-      <Route path=":id/:title" element={<AcademicGroup />} loader={academicGroupLoader} />
+      <Route path=":id/:title" element={<AcademicGroup />} />
       <Route path="search" element={<SearchResults />} />
     </Route>
     <Route path="subjects">
@@ -38,6 +39,25 @@ const routes = createRoutesFromElements(
     </Route> */}
   </Route>
 );
+
+const index = routes[0];
+if (index.children) {
+  for (const subRoute of index.children) {
+    if (
+      !subRoute.path ||
+      !["academic-groups", "subjects", "courses", "sections", "instructors"].includes(subRoute.path)
+    )
+      continue;
+
+    if (["academic-groups"].includes(subRoute.path)) {
+      const indexRoute = subRoute.children![0];
+      indexRoute.loader = () => fetch(`https://spire-api.melanson.dev/${subRoute.path}/`);
+    }
+
+    const idRoute = subRoute.children![1];
+    idRoute.loader = ({ params }) => fetch(`https://spire-api.melanson.dev/${subRoute.path}/${params.id}`);
+  }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 ReactDOM.createRoot(document.getElementById("root")!).render(

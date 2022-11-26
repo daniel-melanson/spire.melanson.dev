@@ -1,19 +1,17 @@
-import { Link } from "react-router-dom";
-import { usePage } from "../api/usePage";
+import { Link, useLoaderData } from "react-router-dom";
+import { AcademicGroup, PaginatedResult } from "../api";
 import { convertToSlug } from "../util/string";
 
 export default function AcademicGroups() {
-  const [page, ,] = usePage("academic-groups");
+  const page = useLoaderData() as PaginatedResult<AcademicGroup>;
 
-  return page ? (
-    <div>
-      {page.results.map(group => (
-        <p key={group.id}>
-          <Link to={`/academic-groups/${group.id}/${convertToSlug(group.title)}/`}>{group.title}</Link>
-        </p>
+  return (
+    <>
+      {page.results.map(g => (
+        <div key={g.id}>
+          <Link to={`/academic-groups/${g.id}/${convertToSlug(g.title)}`}>{g.title}</Link>
+        </div>
       ))}
-    </div>
-  ) : (
-    <div>Loading...</div>
+    </>
   );
 }

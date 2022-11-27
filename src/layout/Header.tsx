@@ -6,7 +6,7 @@ import { convertToSlug } from "../util/string";
 
 export default function Header() {
   const searchGroups = ["Academic Groups", "Subjects", "Courses", "Sections", "Instructors"];
-  const [searchGroup, setSearchGroup] = useState<string>(searchGroups[0]);
+  const [searchGroup, setSearchGroup] = useState<string>(searchGroups[2]);
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
@@ -26,7 +26,7 @@ export default function Header() {
             <InputGroup>
               <DropdownButton variant="light" title={searchGroup} id="input-group-dropdown-2" align="start">
                 {searchGroups.map(s => (
-                  <Dropdown.Item key={s} onClick={() => setSearchGroup(s)}>
+                  <Dropdown.Item active={s === searchGroup} key={s} onClick={() => setSearchGroup(s)}>
                     {s}
                   </Dropdown.Item>
                 ))}

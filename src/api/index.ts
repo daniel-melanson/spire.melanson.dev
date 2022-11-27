@@ -97,7 +97,7 @@ export interface Course extends HyperlinkedObject {
     campus: string | null;
   };
   enrollment_information: SectionMeetingInformation;
-  offerings: OfferingField[];
+  offerings: CourseOfferingField[];
 }
 
 export type CourseField = HyperlinkedField<Course, "title">;
@@ -110,7 +110,12 @@ export interface CourseOffering extends HyperlinkedObject<number> {
   sections: SectionField;
 }
 
-export type OfferingField = HyperlinkedField<CourseOffering, "term">;
+export type CourseOfferingField = HyperlinkedField<CourseOffering, "term">;
+
+export interface CourseInstructors {
+  offering: CourseOfferingField;
+  instructors: Instructor[];
+}
 
 export interface Instructor extends HyperlinkedObject {
   name: string;
@@ -149,7 +154,7 @@ export interface SectionMeetingInformation {
 
 export interface Section extends HyperlinkedObject<number> {
   spire_id: string;
-  offering: OfferingField;
+  offering: CourseOfferingField;
   description: string | null;
   overview: string | null;
   details: SectionDetails;

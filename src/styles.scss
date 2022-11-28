@@ -12,4 +12,6 @@ $theme-colors: (
   "light": #ffffff,
 );
 
+$dropdown-link-active-bg: $umass-grey;
+
 @import "~bootstrap/scss/bootstrap";

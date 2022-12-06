@@ -10,12 +10,9 @@ export default function CourseOfferingAccordion({ courseId }: CourseOfferingAcco
   const [listings, setListings] = useState<CourseInstructors[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const res = await fetch(`https://spire-api.melanson.dev/courses/${courseId}/instructors`);
-      const json = await res.json();
-
-      setListings(json);
-    })();
+    fetch(`https://spire-api.melanson.dev/courses/${courseId}/instructors`)
+      .then(res => (res.ok ? res.json() : Promise.reject()))
+      .then(setListings);
   }, []);
 
   return (
@@ -23,11 +20,12 @@ export default function CourseOfferingAccordion({ courseId }: CourseOfferingAcco
       {listings.map((listing, i) => (
         <Accordion.Item key={listing.offering.term.id} eventKey={String(i)}>
           <Accordion.Header>
-            {listing.offering.term.id}:{" "}
+            {listing.offering.term.id}
+            {": "}
             {listing.instructors
               .map(i => i.name)
               .filter(x => x !== "Staff")
-              .join(", ")}
+              .join(", ") || "Staff"}
           </Accordion.Header>
           <Accordion.Body>
             Nisi id anim id aliqua exercitation aliquip occaecat ut. Consectetur duis amet laborum mollit adipisicing

@@ -10,6 +10,7 @@ import Course from "./routes/Course";
 import Courses from "./routes/Courses";
 import Home from "./routes/Home";
 import SearchResults from "./routes/SearchResults";
+import Section from "./routes/Section";
 import Subject from "./routes/Subject";
 import Subjects from "./routes/Subjects";
 import "./styles.scss";
@@ -33,30 +34,24 @@ const routes = createRoutesFromElements(
       <Route path=":id" element={<Course />} />
       <Route path="search" element={<SearchResults />} />
     </Route>
-    {/* <Route path="sections" element={<Sections />}>
+    <Route path="sections">
       <Route path=":id" element={<Section />} />
       <Route path="search" element={<SearchResults />} />
-    </Route> */}
+    </Route>
   </Route>
 );
 
-const index = routes[0];
-if (index.children) {
-  for (const subRoute of index.children) {
-    if (
-      !subRoute.path ||
-      !["academic-groups", "subjects", "courses", "sections", "instructors"].includes(subRoute.path)
-    )
-      continue;
+const DATA_ROUTES = new Set(["academic-groups", "subjects", "courses", "sections", "instructors"]);
+for (const subRoute of routes[0]!.children!) {
+  if (!subRoute.path || !DATA_ROUTES.has(subRoute.path)) continue;
 
-    if (["academic-groups"].includes(subRoute.path)) {
-      const indexRoute = subRoute.children![0];
-      indexRoute.loader = () => fetch(`https://spire-api.melanson.dev/${subRoute.path}/`);
-    }
-
-    const idRoute = subRoute.children![1];
-    idRoute.loader = ({ params }) => fetch(`https://spire-api.melanson.dev/${subRoute.path}/${params.id}`);
+  if (subRoute.path === "academic-groups") {
+    const indexRoute = subRoute.children![0];
+    indexRoute.loader = () => fetch(`https://spire-api.melanson.dev/${subRoute.path}/`);
   }
+
+  const idRoute = subRoute.children![1];
+  idRoute.loader = ({ params }) => fetch(`https://spire-api.melanson.dev/${subRoute.path}/${params.id}`);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
